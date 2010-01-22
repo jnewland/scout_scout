@@ -1,6 +1,6 @@
 = scout_scout
 
-Get your data out of Scout:
+Scout your data out of Scout:
 
     require 'scout_scout'
     scout = ScoutScout.new('youraccountname', 'your@awesome.com', 'sekret')

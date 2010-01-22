@@ -10,7 +10,7 @@ begin
     gem.email = "jnewland@gmail.com"
     gem.homepage = "http://github.com/jnewland/scout_scout"
     gem.authors = ["Jesse Newland"]
-    gem.add_development_dependency "rspec", "= 1.2.9"
+    gem.add_development_dependency "rspec", "= 1.3.0"
     gem.add_development_dependency "fakeweb"
     gem.add_dependency "hashie", "~> 0.1.8"
     gem.add_dependency "httparty", "~> 0.5.0"

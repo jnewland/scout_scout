@@ -1,6 +1,17 @@
 = scout_scout
 
-Description goes here.
+Get your data out of Scout:
+
+    require 'scout_scout'
+    scout = ScoutScout.new('youraccountname', 'your@awesome.com', 'sekret')
+    #all your servers
+    clients = scout.clients
+    #one specific server
+    ram_hungry = scout.client(1234)
+    #details on that server's plugins
+    ram_hungry_plugins = scout.plugins(1234)
+    #details about the plugin with id 5678 in account 1234
+    data = scout.plugin_data(1234,5678)
 
 == Note on Patches/Pull Requests
  

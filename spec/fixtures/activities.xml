@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alerts type="array">
+  <alert>
+    <body nil="true"></body>
+    <client-id type="integer">24331</client-id>
+    <email-viewed-at type="datetime" nil="true"></email-viewed-at>
+    <id type="integer">35793021</id>
+    <last-repeated-at type="datetime">2010-01-21T20:30:00-05:00</last-repeated-at>
+    <needs-sms type="integer">0</needs-sms>
+    <num-repeats type="integer">1</num-repeats>
+    <plugin-id type="integer">122761</plugin-id>
+    <sms-sent-at type="datetime" nil="true"></sms-sent-at>
+    <stopped-repeating-at type="datetime" nil="true"></stopped-repeating-at>
+    <time type="datetime">2010-01-21T20:30:00-05:00</time>
+    <trigger-id type="integer">101821</trigger-id>
+    <title> Passenger Global Queue Depth met or exceeded 1 , increasing to 2 for 30 minutes at 08:30PM </title>
+  </alert>
+  <alert>
+    <body nil="true"></body>
+    <client-id type="integer">22301</client-id>
+    <email-viewed-at type="datetime" nil="true"></email-viewed-at>
+    <id type="integer">35793011</id>
+    <last-repeated-at type="datetime">2010-01-21T20:30:00-05:00</last-repeated-at>
+    <needs-sms type="integer">0</needs-sms>
+    <num-repeats type="integer">1</num-repeats>
+    <plugin-id type="integer">122731</plugin-id>
+    <sms-sent-at type="datetime" nil="true"></sms-sent-at>
+    <stopped-repeating-at type="datetime" nil="true"></stopped-repeating-at>
+    <time type="datetime">2010-01-21T20:30:00-05:00</time>
+    <trigger-id type="integer">101731</trigger-id>
+    <title> Passenger Global Queue Depth met or exceeded 1 , increasing to 1 for 30 minutes at 08:30PM </title>
+  </alert>
+</alerts>

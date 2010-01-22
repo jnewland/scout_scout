@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clients type="array">
+    <client>
+      <checkin-interval type="integer">3</checkin-interval>
+      <checkup-status>OK</checkup-status>
+      <external-id nil="true"></external-id>
+      <id type="integer">13431</id>
+      <key>FOOBAR</key>
+      <last-checkin type="datetime">2010-01-21T20:35:01-05:00</last-checkin>
+      <last-ping type="datetime">2010-01-21T20:35:00-05:00</last-ping>
+      <name>foobar</name>
+      <num-checkins type="integer">20785</num-checkins>
+      <partner-id type="integer" nil="true"></partner-id>
+      <plan-updated-at type="datetime">2010-01-19T08:59:32-05:00</plan-updated-at>
+      <second-to-last-checkin type="datetime">2010-01-21T20:32:01-05:00</second-to-last-checkin>
+      <second-to-last-ping type="datetime">2010-01-21T20:32:00-05:00</second-to-last-ping>
+      <send-checkup-email type="boolean" nil="true"></send-checkup-email>
+      <send-checkup-sms type="boolean" nil="true"></send-checkup-sms>
+      <take-snapshots type="boolean">false</take-snapshots>
+      <version>3.2.6</version>
+  <active-alerts type="array"/>
+    </client>
+    <client>
+      <checkin-interval type="integer">3</checkin-interval>
+      <checkup-status>Failure</checkup-status>
+      <external-id nil="true"></external-id>
+      <id type="integer">22751</id>
+      <key>FOO2</key>
+      <last-checkin type="datetime">2010-01-15T07:33:59-05:00</last-checkin>
+      <last-ping type="datetime">2010-01-15T07:33:52-05:00</last-ping>
+      <name>foo2</name>
+      <num-checkins type="integer">4801</num-checkins>
+      <partner-id type="integer" nil="true"></partner-id>
+      <plan-updated-at type="datetime">2010-01-19T08:59:32-05:00</plan-updated-at>
+      <second-to-last-checkin type="datetime">2010-01-05T05:33:14-05:00</second-to-last-checkin>
+      <second-to-last-ping type="datetime">2010-01-05T05:33:03-05:00</second-to-last-ping>
+      <send-checkup-email type="boolean" nil="true"></send-checkup-email>
+      <send-checkup-sms type="boolean" nil="true"></send-checkup-sms>
+      <take-snapshots type="boolean">false</take-snapshots>
+      <version>5.0.3</version>
+  <active-alerts type="array">
+      <alert>
+          <body nil="true"></body>
+          <email-viewed-at type="datetime" nil="true"></email-viewed-at>
+          <id type="integer">34555661</id>
+          <last-repeated-at type="datetime">2010-01-05T06:00:00-05:00</last-repeated-at>
+          <needs-sms type="integer">0</needs-sms>
+          <num-repeats type="integer">2</num-repeats>
+          <plugin-id type="integer">112001</plugin-id>
+          <sms-sent-at type="datetime" nil="true"></sms-sent-at>
+          <time type="datetime">2010-01-05T05:00:00-05:00</time>
+          <trigger-id type="integer">88111</trigger-id>
+          <title> Passenger private total increased 1,133 MB (200%) from 566 MB to 1,699 MB from 04:00AM-05:00AM relative to 03:00AM-04:00AM and is still continuing as of 06:00AM (16 days so far) </title>
+      </alert>
+  </active-alerts>
+    </client>
+</clients>

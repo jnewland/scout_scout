@@ -1,3 +1,3 @@
-module ScoutScout
-  VERSION = '0.0.0'
+class ScoutScout
+  VERSION = '0.0.1'
 end

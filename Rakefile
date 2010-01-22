@@ -1,9 +1,11 @@
 require 'rubygems'
 require 'rake'
+require 'scout_scout/version'
 
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
+    gem.version = ScoutScout::VERSION
     gem.name = "scout_scout"
     gem.summary = %Q{API wrapper for scout.com}
     gem.description = %Q{API wrapper for scout.com}
@@ -39,7 +41,6 @@ task :default => :spec
 
 require 'rake/rdoctask'
 $LOAD_PATH.unshift 'lib'
-require 'scout_scout/version'
 Rake::RDocTask.new do |rdoc|
   version = ScoutScout::VERSION
 

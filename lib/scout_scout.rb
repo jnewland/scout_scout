@@ -1,10 +1,12 @@
 require 'hashie'
 require 'httparty'
 require 'scout_scout/version'
+require 'cgi'
 
 class ScoutScout
   include HTTParty
-  base_uri 'https://scoutapp.com'
+  # base_uri 'https://scoutapp.com'
+  base_uri 'http://localhost:3000'
   format :xml
   mattr_inheritable :account
 
@@ -13,12 +15,12 @@ class ScoutScout
     self.class.basic_auth user, pass
   end
 
-  def alerts(id = nil)
-    if id.nil?
+  def alerts(hostname = nil)
+    if hostname.nil?
       response = self.class.get("/#{self.class.account}/activities.xml")
       response['alerts'].map { |alert| Hashie::Mash.new(alert) }
     else
-      response = self.class.get("/#{self.class.account}/clients/#{id}/activities.xml")
+      response = self.class.get("/#{self.class.account}/activities.xml?host=hostname")
       response['alerts'].map { |alert| Hashie::Mash.new(alert) }
     end
   end
@@ -28,33 +30,18 @@ class ScoutScout
     response['clients'].map { |client| Hashie::Mash.new(client) }
   end
 
-  def client(id)
-    response = self.class.get("/#{self.class.account}/clients/#{id}.xml")
-    Hashie::Mash.new(response['client'])
+  def client(hostname)
+    response = self.class.get("/#{self.class.account}/clients.xml?host=#{hostname}")
+    Hashie::Mash.new(response['clients'].first)
   end
 
-  def plugins(id)
-    response = self.class.get("/#{self.class.account}/clients/#{id}/plugins.xml")
+  def plugins(hostname)
+    response = self.class.get("/#{self.class.account}/plugins.xml?host=#{hostname}")
     response['plugins'].map { |plugin| Hashie::Mash.new(plugin) }
   end
 
-  def plugin_data(client, id)
-    require 'nokogiri'
-    html = self.class.get("/#{self.class.account}/clients/#{client}/plugins/#{id}", :format => :html)
-    plugin_doc = Nokogiri::HTML(html)
-    table = plugin_doc.css('table.list.spaced').first
-    data = []
-    table.css('tr').each do |row|
-      if (columns = row.css('td')).length == 2
-        link = columns.first.css('a').first
-        descriptor = {}
-        descriptor[:name] = link.content
-        descriptor[:data] = columns[1].content.strip
-        descriptor[:id] = link.attribute('href').to_s.gsub(/.*=/,'').to_i
-        descriptor[:graph] = "#{self.class.base_uri}/#{self.class.account}/descriptors/#{descriptor[:id]}/graph"
-        data << Hashie::Mash.new(descriptor)
-      end
-    end
-    data
+  def plugin_data(hostname, plugin_name)
+    response = self.class.get("/#{self.class.account}/plugins/show.xml?host=#{hostname}&name=#{CGI.escape(plugin_name)}")
+    Hashie::Mash.new(response['plugin'])
   end
 end

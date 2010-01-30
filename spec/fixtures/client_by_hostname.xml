@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clients type="array">
+  <client>
+    <checkin-interval type="integer">3</checkin-interval>
+    <checkup-status>OK</checkup-status>
+    <external-id nil="true"></external-id>
+    <id type="integer">13431</id>
+    <key>FOOBAR</key>
+    <last-checkin type="datetime">2010-01-21T20:35:01-05:00</last-checkin>
+    <last-ping type="datetime">2010-01-21T20:35:00-05:00</last-ping>
+    <name>foobar</name>
+    <num-checkins type="integer">20785</num-checkins>
+    <partner-id type="integer" nil="true"></partner-id>
+    <plan-updated-at type="datetime">2010-01-19T08:59:32-05:00</plan-updated-at>
+    <second-to-last-checkin type="datetime">2010-01-21T20:32:01-05:00</second-to-last-checkin>
+    <second-to-last-ping type="datetime">2010-01-21T20:32:00-05:00</second-to-last-ping>
+    <send-checkup-email type="boolean" nil="true"></send-checkup-email>
+    <send-checkup-sms type="boolean" nil="true"></send-checkup-sms>
+    <take-snapshots type="boolean">false</take-snapshots>
+    <version>3.2.6</version>
+<active-alerts type="array"/>
+  </client>
+</clients>

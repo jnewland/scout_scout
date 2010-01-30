@@ -1,0 +1,62 @@
+<plugin>
+  <code-updated-at type="datetime">2010-01-14T18:39:52-05:00</code-updated-at>
+  <created-at type="datetime">2010-01-14T18:39:53-05:00</created-at>
+  <enabled type="boolean">true</enabled>
+  <failed-at type="datetime" nil="true"></failed-at>
+  <failing type="boolean">false</failing>
+  <first-reported-at type="datetime">2010-01-14T18:40:17-05:00</first-reported-at>
+  <id type="integer">122681</id>
+  <interval type="integer">0</interval>
+  <last-reported-at type="datetime">2010-01-30T19:01:00-05:00</last-reported-at>
+  <name>Passenger</name>
+  <plugin-url-id type="integer" nil="true"></plugin-url-id>
+  <status nil="true"></status>
+  <updated-at type="datetime">2010-01-30T19:01:04-05:00</updated-at>
+  <url>http://github.com/eric/sevenscale-scout-plugins/raw/master/passenger_united.rb</url>
+  <descriptors>
+    <descriptor>
+      <name>passenger_process_active</name>
+      <value>31</value>
+    </descriptor>
+    <descriptor>
+      <name>passenger_process_current</name>
+      <value>35</value>
+    </descriptor>
+    <descriptor>
+      <name>apache_vmsize_total</name>
+      <value>1613.7</value>
+    </descriptor>
+    <descriptor>
+      <name>passenger_queue_depth</name>
+      <value>0</value>
+    </descriptor>
+    <descriptor>
+      <name>passenger_max_pool_size</name>
+      <value>35</value>
+    </descriptor>
+    <descriptor>
+      <name>passenger_vmsize_total</name>
+      <value>6835.4</value>
+    </descriptor>
+    <descriptor>
+      <name>passenger_process_inactive</name>
+      <value>4</value>
+    </descriptor>
+    <descriptor>
+      <name>passenger_private_total</name>
+      <value>1515.1</value>
+    </descriptor>
+    <descriptor>
+      <name>nginx_processes</name>
+      <value>0</value>
+    </descriptor>
+    <descriptor>
+      <name>apache_private_total</name>
+      <value>10.3</value>
+    </descriptor>
+    <descriptor>
+      <name>apache_processes</name>
+      <value>5</value>
+    </descriptor>
+  </descriptors>
+</plugin>

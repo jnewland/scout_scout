@@ -38,13 +38,24 @@ describe "ScoutScout" do
     end
   end
   describe 'individual clients' do
-    describe '' do
-      before(:each) do
-        stub_http_response_with('client.xml')
-        @client = @scout_scout.client(1234)
+    describe 'should be accessable' do
+      describe '' do
+        before(:each) do
+          stub_http_response_with('client.xml')
+          @client = @scout_scout.client(1234)
+        end
+        it "by id" do
+          @client.key.should == 'FOOBAR'
+        end
       end
-      it "should be accessable" do
-        @client.key.should == 'FOOBAR'
+      describe '' do
+        before(:each) do
+          stub_http_response_with('client_by_hostname.xml')
+          @client = @scout_scout.client('foo.awesome.com')
+        end
+        it "by hostname" do
+          @client.key.should == 'FOOBAR'
+        end
       end
     end
     describe 'alert log' do
@@ -74,22 +85,18 @@ describe "ScoutScout" do
       end
       describe 'data' do
         before(:each) do
-          stub_http_response_with('plugin.html')
-          @plugin_data = @scout_scout.plugin_data(1234,5678)
+          stub_http_response_with('plugin_data.xml')
+          @plugin_data = @scout_scout.plugin_data('foo.awesome.com','passenger')
         end
         it "should be accessable" do
-          @plugin_data.size.should == 13
+          @plugin_data.name.should == 'Passenger'
         end
-        it "should include data" do
-          @plugin_data.first.data.should == '6 MB'
-        end
-        it "should include graph URLs" do
-          @plugin_data.first.graph.should == 'https://scoutapp.com/account/descriptors/368241/graph'
-        end
-        it "should include name" do
-          @plugin_data.first.name.should == 'Swap Used'
+        it "should include descriptors" do
+          @plugin_data.descriptors.first.value.should == '31'
+          @plugin_data.descriptors.first.name.should == 'passenger_process_active'
         end
       end
+
     end
   end
 end

@@ -1,6 +1,7 @@
 require 'hashie'
 require 'httparty'
 require 'scout_scout/version'
+require 'cgi'
 
 class ScoutScout
   include HTTParty
@@ -13,14 +14,15 @@ class ScoutScout
     self.class.basic_auth user, pass
   end
 
-  def alerts(id = nil)
-    if id.nil?
-      response = self.class.get("/#{self.class.account}/activities.xml")
-      response['alerts'].map { |alert| Hashie::Mash.new(alert) }
+  def alerts(id_or_hostname = nil)
+    response = if id_or_hostname.nil?
+      self.class.get("/#{self.class.account}/activities.xml")
+    elsif id_or_hostname.is_a?(Fixnum)
+      self.class.get("/#{self.class.account}/clients/#{id_or_hostname}/activities.xml")
     else
-      response = self.class.get("/#{self.class.account}/clients/#{id}/activities.xml")
-      response['alerts'].map { |alert| Hashie::Mash.new(alert) }
+      self.class.get("/#{self.class.account}/activities.xml?host=#{id_or_hostname}")
     end
+    response['alerts'].map { |alert| Hashie::Mash.new(alert) }
   end
 
   def clients
@@ -28,33 +30,30 @@ class ScoutScout
     response['clients'].map { |client| Hashie::Mash.new(client) }
   end
 
-  def client(id)
-    response = self.class.get("/#{self.class.account}/clients/#{id}.xml")
-    Hashie::Mash.new(response['client'])
+  def client(id_or_hostname)
+    if id_or_hostname.is_a?(Fixnum)
+      response = self.class.get("/#{self.class.account}/clients/#{id_or_hostname}.xml")
+      Hashie::Mash.new(response['client'])
+    else
+      response = self.class.get("/#{self.class.account}/clients.xml?host=#{id_or_hostname}")
+      Hashie::Mash.new(response['clients'].first)
+    end
   end
 
-  def plugins(id)
-    response = self.class.get("/#{self.class.account}/clients/#{id}/plugins.xml")
+  def plugins(id_or_hostname)
+    response = if id_or_hostname.is_a?(Fixnum)
+      self.class.get("/#{self.class.account}/clients/#{id_or_hostname}/plugins.xml")
+    else
+      self.class.get("/#{self.class.account}/plugins.xml?host=#{id_or_hostname}")
+    end
     response['plugins'].map { |plugin| Hashie::Mash.new(plugin) }
   end
 
-  def plugin_data(client, id)
-    require 'nokogiri'
-    html = self.class.get("/#{self.class.account}/clients/#{client}/plugins/#{id}", :format => :html)
-    plugin_doc = Nokogiri::HTML(html)
-    table = plugin_doc.css('table.list.spaced').first
-    data = []
-    table.css('tr').each do |row|
-      if (columns = row.css('td')).length == 2
-        link = columns.first.css('a').first
-        descriptor = {}
-        descriptor[:name] = link.content
-        descriptor[:data] = columns[1].content.strip
-        descriptor[:id] = link.attribute('href').to_s.gsub(/.*=/,'').to_i
-        descriptor[:graph] = "#{self.class.base_uri}/#{self.class.account}/descriptors/#{descriptor[:id]}/graph"
-        data << Hashie::Mash.new(descriptor)
-      end
-    end
-    data
+  def plugin_data(hostname, plugin_name)
+    response = self.class.get("/#{self.class.account}/plugins/show.xml?host=#{hostname}&name=#{CGI.escape(plugin_name)}")
+    response = Hashie::Mash.new(response['plugin'])
+    #munge the descriptors
+    response.descriptors = response.descriptors.map { |item| item[1].first }
+    response
   end
 end

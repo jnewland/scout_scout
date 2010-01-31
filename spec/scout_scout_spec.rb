@@ -20,6 +20,9 @@ describe "ScoutScout" do
       it 'should list all clients' do
         @clients.size.should == 2
       end
+      it "should be an array ScoutScout::Client objects" do
+        @clients.first.class.should == ScoutScout::Client
+      end
       it "should include active alerts" do
         @clients.last.active_alerts.first.title.should =~ /Passenger/
       end
@@ -28,6 +31,9 @@ describe "ScoutScout" do
       before(:each) do
         @scout_scout.stub_get('activities.xml')
         @activities = @scout_scout.alerts
+      end
+      it "should be an array ScoutScout::Alert objects" do
+        @activities.first.class.should == ScoutScout::Alert
       end
       it "should be accessable" do
         @activities.size.should == 2
@@ -42,26 +48,30 @@ describe "ScoutScout" do
       describe '' do
         before(:each) do
           @scout_scout.stub_get('clients/1234.xml', 'client.xml')
-          @client = @scout_scout.client(1234)
+          @client = ScoutScout::Client.find(1234)
         end
         it "by id" do
           @client.key.should == 'FOOBAR'
+          @client.class.should == ScoutScout::Client
         end
       end
       describe '' do
         before(:each) do
           @scout_scout.stub_get('clients.xml?host=foo.awesome.com', 'client_by_hostname.xml')
-          @client = @scout_scout.client('foo.awesome.com')
+          @client = ScoutScout::Client.find('foo.awesome.com')
         end
         it "by hostname" do
           @client.key.should == 'FOOBAR'
+          @client.class.should == ScoutScout::Client
         end
       end
     end
     describe 'alert log' do
       before(:each) do
-        @scout_scout.stub_get('clients/1234/activities.xml', 'activities.xml')
-        @activities = @scout_scout.alerts(1234)
+        @scout_scout.stub_get('clients/13431.xml', 'client.xml')
+        @client = ScoutScout::Client.find(13431)
+        @scout_scout.stub_get('clients/13431/activities.xml', 'activities.xml')
+        @activities = @client.alerts
       end
       it "should be accessable" do
         @activities.size.should == 2
@@ -69,12 +79,17 @@ describe "ScoutScout" do
           activity.title.should =~ /Passenger/
         end
       end
+      it "should be an array ScoutScout::Alert objects" do
+        @activities.first.class.should == ScoutScout::Alert
+      end
     end
     describe 'plugin' do
       describe 'list' do
         before(:each) do
-          @scout_scout.stub_get('clients/1234/plugins.xml', 'plugins.xml')
-          @plugins = @scout_scout.plugins(1234)
+          @scout_scout.stub_get('clients/13431.xml', 'client.xml')
+          @client = ScoutScout::Client.find(13431)
+          @scout_scout.stub_get('clients/13431/plugins.xml', 'plugins.xml')
+          @plugins = @client.plugins
         end
         it "should be accessable" do
           @plugins.size.should == 2
@@ -83,19 +98,28 @@ describe "ScoutScout" do
             plugin.descriptors.length.should == 11
           end
         end
+        it "should be an array ScoutScout::Plugin objects" do
+          @plugins.first.class.should == ScoutScout::Plugin
+        end
       end
       describe 'individually' do
         before(:each) do
-          @scout_scout.stub_get('plugins/show.xml?host=foo.awesome.com&name=passenger', 'plugin_data.xml')
-          @plugin_data = @scout_scout.plugin_data('foo.awesome.com','passenger')
+          @scout_scout.stub_get('clients/13431.xml', 'client.xml')
+          @client = ScoutScout::Client.find(13431)
+          @scout_scout.stub_get('clients/13431/plugins/12345.xml', 'plugin_data.xml')
+          @plugin_data = @client.plugin(12345)
         end
         it "should be accessable" do
+          @plugin_data.class.should == ScoutScout::Plugin
           @plugin_data.name.should == 'Passenger'
           @plugin_data.descriptors.length.should == 11
         end
         it "should include descriptors" do
+          @plugin_data.descriptors.first.class.should == ScoutScout::Descriptor
           @plugin_data.descriptors.first.value.should == '31'
           @plugin_data.descriptors.first.name.should == 'passenger_process_active'
+        end
+        it "should be an ScoutScout::Plugin objects" do
         end
       end
 

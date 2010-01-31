@@ -14,7 +14,7 @@ describe "ScoutScout" do
   describe "global" do
     describe "client list" do
       before(:each) do
-        stub_http_response_with('clients.xml')
+        @scout_scout.stub_get('clients.xml')
         @clients = @scout_scout.clients
       end
       it 'should list all clients' do
@@ -26,7 +26,7 @@ describe "ScoutScout" do
     end
     describe 'alert log' do
       before(:each) do
-        stub_http_response_with('activities.xml')
+        @scout_scout.stub_get('activities.xml')
         @activities = @scout_scout.alerts
       end
       it "should be accessable" do
@@ -41,7 +41,7 @@ describe "ScoutScout" do
     describe 'should be accessable' do
       describe '' do
         before(:each) do
-          stub_http_response_with('client.xml')
+          @scout_scout.stub_get('clients/1234.xml', 'client.xml')
           @client = @scout_scout.client(1234)
         end
         it "by id" do
@@ -50,7 +50,7 @@ describe "ScoutScout" do
       end
       describe '' do
         before(:each) do
-          stub_http_response_with('client_by_hostname.xml')
+          @scout_scout.stub_get('clients.xml?host=foo.awesome.com', 'client_by_hostname.xml')
           @client = @scout_scout.client('foo.awesome.com')
         end
         it "by hostname" do
@@ -60,7 +60,7 @@ describe "ScoutScout" do
     end
     describe 'alert log' do
       before(:each) do
-        stub_http_response_with('activities.xml')
+        @scout_scout.stub_get('clients/1234/activities.xml', 'activities.xml')
         @activities = @scout_scout.alerts(1234)
       end
       it "should be accessable" do
@@ -73,7 +73,7 @@ describe "ScoutScout" do
     describe 'plugins' do
       describe '' do
         before(:each) do
-          stub_http_response_with('plugins.xml')
+          @scout_scout.stub_get('clients/1234/plugins.xml', 'plugins.xml')
           @plugins = @scout_scout.plugins(1234)
         end
         it "should be accessable" do
@@ -85,7 +85,7 @@ describe "ScoutScout" do
       end
       describe 'data' do
         before(:each) do
-          stub_http_response_with('plugin_data.xml')
+          @scout_scout.stub_get('plugins/show.xml?host=foo.awesome.com&name=passenger', 'plugin_data.xml')
           @plugin_data = @scout_scout.plugin_data('foo.awesome.com','passenger')
         end
         it "should be accessable" do

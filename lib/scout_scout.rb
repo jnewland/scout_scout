@@ -46,14 +46,19 @@ class ScoutScout
     else
       self.class.get("/#{self.class.account}/plugins.xml?host=#{id_or_hostname}")
     end
-    response['plugins'].map { |plugin| Hashie::Mash.new(plugin) }
+    response['plugins'].map { |plugin| format_plugin(Hashie::Mash.new(plugin)) }
   end
 
   def plugin_data(hostname, plugin_name)
     response = self.class.get("/#{self.class.account}/plugins/show.xml?host=#{hostname}&name=#{CGI.escape(plugin_name)}")
-    response = Hashie::Mash.new(response['plugin'])
-    #munge the descriptors
-    response.descriptors = response.descriptors.map { |item| item[1].first }
-    response
+    format_plugin(Hashie::Mash.new(response['plugin']))
   end
+
+protected
+
+  def format_plugin(plugin)
+    plugin.descriptors = plugin.descriptors.descriptor
+    plugin
+  end
+
 end

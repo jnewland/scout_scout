@@ -70,26 +70,28 @@ describe "ScoutScout" do
         end
       end
     end
-    describe 'plugins' do
-      describe '' do
+    describe 'plugin' do
+      describe 'list' do
         before(:each) do
           @scout_scout.stub_get('clients/1234/plugins.xml', 'plugins.xml')
           @plugins = @scout_scout.plugins(1234)
         end
         it "should be accessable" do
-          @plugins.size.should == 4
+          @plugins.size.should == 2
           @plugins.each do |plugin|
-            plugin.code.should =~ /Scout::Plugin/
+            plugin.name.should =~ /Passenger/
+            plugin.descriptors.length.should == 11
           end
         end
       end
-      describe 'data' do
+      describe 'individually' do
         before(:each) do
           @scout_scout.stub_get('plugins/show.xml?host=foo.awesome.com&name=passenger', 'plugin_data.xml')
           @plugin_data = @scout_scout.plugin_data('foo.awesome.com','passenger')
         end
         it "should be accessable" do
           @plugin_data.name.should == 'Passenger'
+          @plugin_data.descriptors.length.should == 11
         end
         it "should include descriptors" do
           @plugin_data.descriptors.first.value.should == '31'

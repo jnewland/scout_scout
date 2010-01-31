@@ -17,11 +17,17 @@ class ScoutScout
     self.class.basic_auth username, password
   end
 
+  # Recent alerts across all clients on this account
+  #
+  # @return [Array] An array of ScoutScout::Alert objects
   def alerts
     response = self.class.get("/#{self.class.account}/activities.xml")
     response['alerts'].map { |alert| ScoutScout::Alert.new(alert) }
   end
 
+  # All clients on this account
+  #
+  # @return [Array] An array of ScoutScout::Client objects
   def clients
     response = self.class.get("/#{self.class.account}/clients.xml")
     response['clients'].map { |client| ScoutScout::Client.new(client) }

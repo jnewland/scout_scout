@@ -24,6 +24,7 @@ describe "ScoutScout" do
         @clients.first.class.should == ScoutScout::Client
       end
       it "should include active alerts" do
+        @clients.last.active_alerts.first.class.should == ScoutScout::Alert
         @clients.last.active_alerts.first.title.should =~ /Passenger/
       end
     end
@@ -34,6 +35,12 @@ describe "ScoutScout" do
       end
       it "should be an array ScoutScout::Alert objects" do
         @activities.first.class.should == ScoutScout::Alert
+      end
+      it "should be associated with it's plugin and client" do
+        @scout_scout.stub_get('clients/24331.xml', 'client.xml')
+        @activities.first.client.class.should == ScoutScout::Client
+        @scout_scout.stub_get('clients/13431/plugins/122761.xml', 'plugin_data.xml')
+        @activities.first.plugin.class.should == ScoutScout::Plugin
       end
       it "should be accessable" do
         @activities.size.should == 2

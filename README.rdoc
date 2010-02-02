@@ -7,7 +7,9 @@ Scout your data out of Scout:
     #all your servers
     clients = scout.clients
     #one specific server - pass in hostname
-    ram_hungry = ScoutScout::Client.find('db1.awesome.com')
+    ram_hungry = ScoutScout::Client.first('db1.awesome.com')
+    #all servers that match the hostname see mysql regex formatting: http://dev.mysql.com/doc/refman/5.0/en/regexp.html
+    app_servers = ScoutScout::Client.all('db[0-9]*.awesome.com')
     #details on that server's plugins
     ram_hungry_plugins = ram_hungry.plugins
     #details about a specific plugin

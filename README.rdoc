@@ -7,11 +7,11 @@ Scout your data out of Scout:
     #all your servers
     clients = scout.clients
     #one specific server - pass in hostname
-    ram_hungry = scout.client('db1.awesome.com')
+    ram_hungry = ScoutScout::Client.find('db1.awesome.com')
     #details on that server's plugins
-    ram_hungry_plugins = scout.plugins('db1.awesome.com')
-    #details about the plugin with with name 'Server Overview' on server 'db1.awesome.com'
-    data = scout.plugin_data('db1.awesome.com','Server Overview')
+    ram_hungry_plugins = ram_hungry.plugins
+    #details about a specific plugin
+    data = ram_hungry.plugin(12345)
 
 == Note on Patches/Pull Requests
  

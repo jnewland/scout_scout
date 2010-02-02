@@ -14,20 +14,33 @@ describe "ScoutScout" do
   describe "global" do
     describe "client list" do
       before(:each) do
-        stub_http_response_with('clients.xml')
+        @scout_scout.stub_get('clients.xml')
         @clients = @scout_scout.clients
       end
       it 'should list all clients' do
         @clients.size.should == 2
       end
+      it "should be an array ScoutScout::Client objects" do
+        @clients.first.class.should == ScoutScout::Client
+      end
       it "should include active alerts" do
+        @clients.last.active_alerts.first.class.should == ScoutScout::Alert
         @clients.last.active_alerts.first.title.should =~ /Passenger/
       end
     end
     describe 'alert log' do
       before(:each) do
-        stub_http_response_with('activities.xml')
+        @scout_scout.stub_get('activities.xml')
         @activities = @scout_scout.alerts
+      end
+      it "should be an array ScoutScout::Alert objects" do
+        @activities.first.class.should == ScoutScout::Alert
+      end
+      it "should be associated with it's plugin and client" do
+        @scout_scout.stub_get('clients/24331.xml', 'client.xml')
+        @activities.first.client.class.should == ScoutScout::Client
+        @scout_scout.stub_get('clients/13431/plugins/122761.xml', 'plugin_data.xml')
+        @activities.first.plugin.class.should == ScoutScout::Plugin
       end
       it "should be accessable" do
         @activities.size.should == 2
@@ -38,19 +51,34 @@ describe "ScoutScout" do
     end
   end
   describe 'individual clients' do
-    describe '' do
-      before(:each) do
-        stub_http_response_with('client.xml')
-        @client = @scout_scout.client(1234)
+    describe 'should be accessable' do
+      describe '' do
+        before(:each) do
+          @scout_scout.stub_get('clients/1234.xml', 'client.xml')
+          @client = ScoutScout::Client.find(1234)
+        end
+        it "by id" do
+          @client.key.should == 'FOOBAR'
+          @client.class.should == ScoutScout::Client
+        end
       end
-      it "should be accessable" do
-        @client.key.should == 'FOOBAR'
+      describe '' do
+        before(:each) do
+          @scout_scout.stub_get('clients.xml?host=foo.awesome.com', 'client_by_hostname.xml')
+          @client = ScoutScout::Client.find('foo.awesome.com')
+        end
+        it "by hostname" do
+          @client.key.should == 'FOOBAR'
+          @client.class.should == ScoutScout::Client
+        end
       end
     end
     describe 'alert log' do
       before(:each) do
-        stub_http_response_with('activities.xml')
-        @activities = @scout_scout.alerts(1234)
+        @scout_scout.stub_get('clients/13431.xml', 'client.xml')
+        @client = ScoutScout::Client.find(13431)
+        @scout_scout.stub_get('clients/13431/activities.xml', 'activities.xml')
+        @activities = @client.alerts
       end
       it "should be accessable" do
         @activities.size.should == 2
@@ -58,38 +86,50 @@ describe "ScoutScout" do
           activity.title.should =~ /Passenger/
         end
       end
+      it "should be an array ScoutScout::Alert objects" do
+        @activities.first.class.should == ScoutScout::Alert
+      end
     end
-    describe 'plugins' do
-      describe '' do
+    describe 'plugin' do
+      describe 'list' do
         before(:each) do
-          stub_http_response_with('plugins.xml')
-          @plugins = @scout_scout.plugins(1234)
+          @scout_scout.stub_get('clients/13431.xml', 'client.xml')
+          @client = ScoutScout::Client.find(13431)
+          @scout_scout.stub_get('clients/13431/plugins.xml', 'plugins.xml')
+          @plugins = @client.plugins
         end
         it "should be accessable" do
-          @plugins.size.should == 4
+          @plugins.size.should == 2
           @plugins.each do |plugin|
-            plugin.code.should =~ /Scout::Plugin/
+            plugin.name.should =~ /Passenger/
+            plugin.descriptors.length.should == 11
           end
         end
+        it "should be an array ScoutScout::Plugin objects" do
+          @plugins.first.class.should == ScoutScout::Plugin
+        end
       end
-      describe 'data' do
+      describe 'individually' do
         before(:each) do
-          stub_http_response_with('plugin.html')
-          @plugin_data = @scout_scout.plugin_data(1234,5678)
+          @scout_scout.stub_get('clients/13431.xml', 'client.xml')
+          @client = ScoutScout::Client.find(13431)
+          @scout_scout.stub_get('clients/13431/plugins/12345.xml', 'plugin_data.xml')
+          @plugin_data = @client.plugin(12345)
         end
         it "should be accessable" do
-          @plugin_data.size.should == 13
+          @plugin_data.class.should == ScoutScout::Plugin
+          @plugin_data.name.should == 'Passenger'
+          @plugin_data.descriptors.length.should == 11
         end
-        it "should include data" do
-          @plugin_data.first.data.should == '6 MB'
+        it "should include descriptors" do
+          @plugin_data.descriptors.first.class.should == ScoutScout::Descriptor
+          @plugin_data.descriptors.first.value.should == '31'
+          @plugin_data.descriptors.first.name.should == 'passenger_process_active'
         end
-        it "should include graph URLs" do
-          @plugin_data.first.graph.should == 'https://scoutapp.com/account/descriptors/368241/graph'
-        end
-        it "should include name" do
-          @plugin_data.first.name.should == 'Swap Used'
+        it "should be an ScoutScout::Plugin objects" do
         end
       end
+
     end
   end
 end

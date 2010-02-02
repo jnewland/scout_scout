@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'rake'
+$LOAD_PATH.unshift 'lib'
 require 'scout_scout/version'
 
 begin
@@ -40,7 +41,6 @@ task :spec => :check_dependencies
 task :default => :spec
 
 require 'rake/rdoctask'
-$LOAD_PATH.unshift 'lib'
 Rake::RDocTask.new do |rdoc|
   version = ScoutScout::VERSION
 

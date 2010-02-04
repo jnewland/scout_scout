@@ -7,7 +7,7 @@ class ScoutScout::Client < Hashie::Mash
     super(hash)
   end
 
-  # Search for a client by id or hostname
+  # Search for a client by id or matching hostname
   #
   # @return [ScoutScout::Client]
   def self.first(client_id_or_hostname)
@@ -20,7 +20,7 @@ class ScoutScout::Client < Hashie::Mash
     end
   end
   
-  # Search for clients wby matching hostname. 
+  # Search for clients by matching hostname. 
   #
   # @return [Array] An array of ScoutScout::Client objects
   def self.all(hostname)

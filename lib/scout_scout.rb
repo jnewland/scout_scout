@@ -1,5 +1,6 @@
 require 'hashie'
 require 'httparty'
+require 'cgi'
 require 'scout_scout/version'
 require 'scout_scout/client'
 require 'scout_scout/descriptor'

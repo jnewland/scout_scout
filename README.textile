@@ -33,7 +33,7 @@ h2. Example Usage
 
 h2. Metrics
 
-The library allows you to extract aggregate metrics across all and/or selected servers in your account. @See Metric#average@
+The library allows you to extract aggregate metrics across all and/or selected servers in your account. @See Cluster#average@
 for information and examples.
     
 h2. Note on Patches/Pull Requests

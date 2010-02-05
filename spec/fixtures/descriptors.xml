@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ar-descriptors type="array">
+  <ar-descriptor>
+    <name>Passenger/apache_private_total</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Server Overview/cpu_last_fifteen_minutes</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Server Overview/cpu_last_five_minutes</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Server Overview/cpu_last_minute</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Server Overview/disk_avail</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Server Overview/disk_capacity</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Server Overview/disk_size</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Server Overview/disk_used</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Network Throughput/eth0_in</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Network Throughput/eth0_in_packets</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Network Throughput/eth0_out</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Network Throughput/eth0_out_packets</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Network Throughput/eth1_in</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Network Throughput/eth1_in_packets</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Network Throughput/eth1_out</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Network Throughput/eth1_out_packets</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Server Overview/mem_swap_percent</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Server Overview/mem_swap_total</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Server Overview/mem_swap_used</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Server Overview/mem_total</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Server Overview/mem_used</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Server Overview/mem_used_percent</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Passenger/nginx_processes</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Passenger/passenger_max_pool_size</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Passenger/passenger_private_total</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Passenger/passenger_process_active</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Passenger/passenger_process_current</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Passenger/passenger_process_inactive</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Passenger/passenger_queue_depth</name>
+  </ar-descriptor>
+  <ar-descriptor>
+    <name>Passenger/passenger_vmsize_total</name>
+  </ar-descriptor>
+</ar-descriptors>

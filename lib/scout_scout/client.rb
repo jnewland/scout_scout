@@ -58,4 +58,12 @@ class ScoutScout::Client < Hashie::Mash
     response = ScoutScout.get("/#{ScoutScout.account}/clients/#{self.id}/plugins/#{id}.xml")
     ScoutScout::Plugin.new(response['plugin'])
   end
+
+  # All descriptors for this client
+  #
+  # @return [Array] An array of ScoutScout::Descriptor objects
+  def descriptors
+    ScoutScout::Descriptor.all(:host => hostname)
+  end
+
 end

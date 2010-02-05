@@ -131,5 +131,19 @@ describe "ScoutScout" do
       end
 
     end
+    describe 'descriptor list' do
+      before(:each) do
+        @scout_scout.stub_get('clients/13431.xml', 'client.xml')
+        @client = ScoutScout::Client.first(13431)
+        @scout_scout.stub_get('descriptors.xml?descriptor=&host=foobar.com&', 'descriptors.xml')
+        @descriptors = @client.descriptors
+      end
+      it "should be accessable" do
+        @descriptors.size.should == 30
+      end
+      it "should be an array ScoutScout::Descriptor objects" do
+        @descriptors.first.class.should == ScoutScout::Descriptor
+      end
+    end
   end
 end

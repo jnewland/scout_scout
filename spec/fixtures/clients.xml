@@ -17,6 +17,7 @@
       <send-checkup-email type="boolean" nil="true"></send-checkup-email>
       <send-checkup-sms type="boolean" nil="true"></send-checkup-sms>
       <take-snapshots type="boolean">false</take-snapshots>
+      <hostname>foobar.com</hostname>
       <version>3.2.6</version>
   <active-alerts type="array"/>
     </client>
@@ -37,6 +38,7 @@
       <send-checkup-email type="boolean" nil="true"></send-checkup-email>
       <send-checkup-sms type="boolean" nil="true"></send-checkup-sms>
       <take-snapshots type="boolean">false</take-snapshots>
+      <hostname>foo2.com</hostname>
       <version>5.0.3</version>
   <active-alerts type="array">
       <alert>

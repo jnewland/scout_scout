@@ -1,4 +1,6 @@
 class ScoutScout::Alert < Hashie::Mash
+  attr_writer :client
+
   # The Scout client that generated this alert
   #
   # @return [ScoutScout::Client]

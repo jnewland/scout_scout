@@ -32,7 +32,7 @@ class ScoutScout::Client < Hashie::Mash
   #
   # @return [Array] An array of ScoutScout::Alert objects
   def active_alerts
-    @active_alerts ||= @alert_hash.map { |a| ScoutScout::Alert.new(a) }
+    @active_alerts ||= @alert_hash.map { |a| decorate_with_client(ScoutScout::Alert.new(a)) }
   end
 
   # Recent alerts for this client
@@ -40,7 +40,7 @@ class ScoutScout::Client < Hashie::Mash
   # @return [Array] An array of ScoutScout::Alert objects
   def alerts
     response = ScoutScout.get("/#{ScoutScout.account}/clients/#{self.id}/activities.xml")
-    response['alerts'].map { |alert| ScoutScout::Alert.new(alert) }
+    response['alerts'].map { |alert| decorate_with_client(ScoutScout::Alert.new(alert)) }
   end
 
   # Details about all plugins for this client
@@ -48,7 +48,7 @@ class ScoutScout::Client < Hashie::Mash
   # @return [Array] An array of ScoutScout::Plugin objects
   def plugins
     response = ScoutScout.get("/#{ScoutScout.account}/clients/#{self.id}/plugins.xml")
-    response['plugins'].map { |plugin| ScoutScout::Plugin.new(plugin) }
+    response['plugins'].map { |plugin| decorate_with_client(ScoutScout::Plugin.new(plugin)) }
   end
 
   # Details about a specific plugin
@@ -56,14 +56,21 @@ class ScoutScout::Client < Hashie::Mash
   # @return [ScoutScout::Plugin]
   def plugin(id)
     response = ScoutScout.get("/#{ScoutScout.account}/clients/#{self.id}/plugins/#{id}.xml")
-    ScoutScout::Plugin.new(response['plugin'])
+    decorate_with_client(ScoutScout::Plugin.new(response['plugin']))
   end
 
   # All descriptors for this client
   #
   # @return [Array] An array of ScoutScout::Descriptor objects
   def descriptors
-    ScoutScout::Descriptor.all(:host => hostname)
+    ScoutScout::Descriptor.all(:host => hostname).map { |d| decorate_with_client(d) }
+  end
+
+protected
+
+  def decorate_with_client(hashie)
+    hashie.client = self
+    hashie
   end
 
 end

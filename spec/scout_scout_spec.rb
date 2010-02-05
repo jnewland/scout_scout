@@ -49,6 +49,30 @@ describe "ScoutScout" do
         end
       end
     end
+    describe 'descriptors' do
+      before(:each) do
+        @scout_scout.stub_get('descriptors.xml?descriptor=&host=&','descriptors.xml')
+        @descriptors = ScoutScout::Descriptor.all
+      end
+      it "should be an array ScoutScout::Descriptor objects" do
+        @descriptors.first.class.should == ScoutScout::Descriptor
+      end
+      it "should be accessable" do
+        @descriptors.size.should == 30
+      end
+    end
+    describe 'descriptor metrics' do
+      before(:each) do
+        @scout_scout.stub_get('data/value?descriptor=cpu_last_minute&function=AVG&consolidate=SUM&host=&start=&end=&','data.xml')
+        @metric = ScoutScout::Cluster.average('cpu_last_minute')
+      end
+      it "should be a ScoutScout::Metric object" do
+        @metric.class.should == ScoutScout::Metric
+      end
+      it "should contain the value" do
+        @metric.value.should == '31.10'
+      end
+    end
   end
   describe 'individual clients' do
     describe 'should be accessable' do
@@ -143,6 +167,22 @@ describe "ScoutScout" do
       end
       it "should be an array ScoutScout::Descriptor objects" do
         @descriptors.first.class.should == ScoutScout::Descriptor
+      end
+    end
+    describe 'descriptor metrics' do
+      before(:each) do
+        @scout_scout.stub_get('clients/13431.xml', 'client.xml')
+        @client = ScoutScout::Client.first(13431)
+        @scout_scout.stub_get('clients/13431/plugins.xml', 'plugins.xml')
+        @plugins = @client.plugins
+        @scout_scout.stub_get('data/value?descriptor=passenger_process_active&function=AVG&consolidate=SUM&host=foobar.com&start=&end=&','data.xml')
+        @metric = @plugins.first.descriptors.first.average
+      end
+      it "should be a ScoutScout::Metric object" do
+        @metric.class.should == ScoutScout::Metric
+      end
+      it "should contain the value" do
+        @metric.value.should == '31.10'
       end
     end
   end

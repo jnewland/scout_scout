@@ -1,6 +1,6 @@
 h1. Scout Scout
 
-A library for extracting data out of "Scout Monitoring (scoutapp.com)":http//scoutapp.com, a hosted monitoring service. This is experimental and likely to change. 
+A library for extracting data out of "Scout Monitoring (scoutapp.com)":http//scoutapp.com, a hosted monitoring service. This is experimental and likely to change. Consult your doctor before beginning a scouting program.
 
 h2. Example Usage
 

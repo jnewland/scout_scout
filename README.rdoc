@@ -1,6 +1,6 @@
 = scout_scout
 
-A library for extracting data out of "Scout Monitoring"[http//:scoutapp.com], a hosted monitoring service. This is experimental and likely to change. Consult your doctor before beginning a scouting program.
+A library for extracting data out of Scout[http//:scoutapp.com], a hosted monitoring service. This is experimental and likely to change. Consult your doctor before beginning a scouting program.
 
   require 'scout_scout'
   scout = ScoutScout.new('youraccountname', 'your@awesome.com', 'sekret')
@@ -29,9 +29,9 @@ A library for extracting data out of "Scout Monitoring"[http//:scoutapp.com], a 
 
 == Metrics
 
-  The library allows you to extract aggregate metrics across all and/or
-  selected servers in your account. See <tt>Cluster#average</tt> for
-  information and examples.
+The library allows you to extract aggregate metrics across all and/or
+selected servers in your account. See <tt>Cluster#average</tt> for
+information and examples.
 
 == Note on Patches/Pull Requests
 

@@ -23,7 +23,7 @@ class ScoutScout::Cluster < Hashie::Mash
   # How much memory did my servers use yesterday?
   # ScoutScout::Cluster.average('mem_used', :start => Time.now-(24*60*60)*2, :end => Time.now-(24*60*60)*2)
   #
-  # @return ScoutScout::Metric
+  # @return [ScoutScout::Metric]
   def self.average(descriptor,options = {})
     calculate('AVG',descriptor,options)
   end
@@ -32,7 +32,7 @@ class ScoutScout::Cluster < Hashie::Mash
   #
   # See +average+ for options and examples.
   #
-  # @return ScoutScout::Metric
+  # @return [ScoutScout::Metric]
   def self.maximum(descriptor,options = {})
     calculate('MAX',descriptor,options)
   end
@@ -41,7 +41,7 @@ class ScoutScout::Cluster < Hashie::Mash
   #
   # See +average+ for options and examples.
   #
-  # @return ScoutScout::Metric
+  # @return [ScoutScout::Metric]
   def self.minimum(descriptor,options = {})
     calculate('MIN',descriptor,options)
   end

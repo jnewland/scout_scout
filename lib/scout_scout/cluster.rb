@@ -4,11 +4,9 @@ class ScoutScout::Cluster < Hashie::Mash
   # Options:
   # 
   # * <tt>:host</tt>: Only selects descriptors from servers w/hostnames matching this pattern. 
-  #   Use a MySQL-formatted Regex. 
-  # * <tt>:start</tt>: The start time for grabbing metrics. Default is 1 hour ago. Any String that Time.parse
-  #   can proccess works (ex: 12/23 3:00 PM). Times will be converted to UTC.
-  # * <tt>:end</tt>: The end time for grabbing metrics. Default is NOW. Any String that Time.parse
-  #   can proccess works (ex: 12/23 3:00 PM). Times will be converted to UTC.
+  #   Use a MySQL-formatted Regex. http://dev.mysql.com/doc/refman/5.0/en/regexp.html
+  # * <tt>:start</tt>: The start time for grabbing metrics. Default is 1 hour ago. Times will be converted to UTC.
+  # * <tt>:end</tt>: The end time for grabbing metrics. Default is NOW. Times will be converted to UTC.
   # * <tt>:per_server</tt>: Whether the result should be returned per-server or an aggregate of the entire cluster. 
   #   Default is false. Note that total is not necessary equal to the value on each server * num of servers. 
   # Examples:
@@ -50,12 +48,18 @@ class ScoutScout::Cluster < Hashie::Mash
   
   def self.calculate(function,descriptor,options = {})
     consolidate = options[:per_server] ? 'AVG' : 'SUM'
-    response = ScoutScout.get("/#{ScoutScout.account}/data/value?descriptor=#{CGI.escape(descriptor)}&function=#{function}&consolidate=#{consolidate}&host=#{options[:host]}&start=#{CGI.escape(options[:start] || String.new)}&end=#{CGI.escape(options[:end] || String.new)}")
+    start_time,end_time=format_times(options)
+    response = ScoutScout.get("/#{ScoutScout.account}/data/value?descriptor=#{CGI.escape(descriptor)}&function=#{function}&consolidate=#{consolidate}&host=#{options[:host]}&start=#{start_time}&end=#{end_time}")
     
     if response['data']
       ScoutScout::Metric.new(response['data'])
     else
       ScoutScout::Error.new(response['error'])
     end
+  end
+  
+  # API expects times in epoch. 
+  def self.format_times(options)
+    options.values_at(:start,:end).map { |t| t ? t.to_i : nil }
   end
 end

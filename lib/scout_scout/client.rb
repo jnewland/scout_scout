@@ -19,13 +19,13 @@ class ScoutScout::Client < Hashie::Mash
       ScoutScout::Client.new(response['clients'].first)
     end
   end
-  
-  # Search for clients by matching hostname. 
+
+  # Search for clients by matching hostname.
   #
   # @return [Array] An array of ScoutScout::Client objects
   def self.all(hostname)
     response = ScoutScout.get("/#{ScoutScout.account}/clients.xml?host=#{hostname}")
-    response['clients'].map { |client| ScoutScout::Client.new(client) }    
+    response['clients'].map { |client| ScoutScout::Client.new(client) }
   end
 
   # Active alerts for this client

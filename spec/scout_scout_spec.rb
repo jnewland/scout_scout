@@ -55,7 +55,7 @@ describe "ScoutScout" do
       describe '' do
         before(:each) do
           @scout_scout.stub_get('clients/1234.xml', 'client.xml')
-          @client = ScoutScout::Client.find(1234)
+          @client = ScoutScout::Client.first(1234)
         end
         it "by id" do
           @client.key.should == 'FOOBAR'
@@ -65,7 +65,7 @@ describe "ScoutScout" do
       describe '' do
         before(:each) do
           @scout_scout.stub_get('clients.xml?host=foo.awesome.com', 'client_by_hostname.xml')
-          @client = ScoutScout::Client.find('foo.awesome.com')
+          @client = ScoutScout::Client.first('foo.awesome.com')
         end
         it "by hostname" do
           @client.key.should == 'FOOBAR'
@@ -76,7 +76,7 @@ describe "ScoutScout" do
     describe 'alert log' do
       before(:each) do
         @scout_scout.stub_get('clients/13431.xml', 'client.xml')
-        @client = ScoutScout::Client.find(13431)
+        @client = ScoutScout::Client.first(13431)
         @scout_scout.stub_get('clients/13431/activities.xml', 'activities.xml')
         @activities = @client.alerts
       end
@@ -94,7 +94,7 @@ describe "ScoutScout" do
       describe 'list' do
         before(:each) do
           @scout_scout.stub_get('clients/13431.xml', 'client.xml')
-          @client = ScoutScout::Client.find(13431)
+          @client = ScoutScout::Client.first(13431)
           @scout_scout.stub_get('clients/13431/plugins.xml', 'plugins.xml')
           @plugins = @client.plugins
         end
@@ -112,7 +112,7 @@ describe "ScoutScout" do
       describe 'individually' do
         before(:each) do
           @scout_scout.stub_get('clients/13431.xml', 'client.xml')
-          @client = ScoutScout::Client.find(13431)
+          @client = ScoutScout::Client.first(13431)
           @scout_scout.stub_get('clients/13431/plugins/12345.xml', 'plugin_data.xml')
           @plugin_data = @client.plugin(12345)
         end

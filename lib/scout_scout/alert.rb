@@ -3,7 +3,7 @@ class ScoutScout::Alert < Hashie::Mash
   #
   # @return [ScoutScout::Client]
   def client
-    @client ||= ScoutScout::Client.find(client_id)
+    @client ||= ScoutScout::Client.first(client_id)
   end
 
   # The Scout plugin that generated this alert

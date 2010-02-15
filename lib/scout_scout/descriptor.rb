@@ -1,5 +1,5 @@
 class ScoutScout::Descriptor < Hashie::Mash
-  attr_accessor :client, :plugin
+  attr_accessor :server, :plugin
 
   # Search for descriptors by matching name and hostname.
   #
@@ -33,7 +33,7 @@ protected
 
   def options_for_relationship(opts = {})
     relationship_options = {}
-    relationship_options[:host] = client.hostname if client
+    relationship_options[:host] = server.hostname if server
     opts.merge(relationship_options)
   end
 

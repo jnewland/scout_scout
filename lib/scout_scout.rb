@@ -2,7 +2,7 @@ require 'hashie'
 require 'httparty'
 require 'cgi'
 require 'scout_scout/version'
-require 'scout_scout/client'
+require 'scout_scout/server'
 require 'scout_scout/descriptor'
 require 'scout_scout/plugin'
 require 'scout_scout/alert'
@@ -21,7 +21,7 @@ class ScoutScout
     self.class.basic_auth username, password
   end
 
-  # Recent alerts across all clients on this account
+  # Recent alerts across all servers on this account
   #
   # @return [Array] An array of ScoutScout::Alert objects
   def alerts
@@ -29,12 +29,12 @@ class ScoutScout
     response['alerts'].map { |alert| ScoutScout::Alert.new(alert) }
   end
 
-  # All clients on this account
+  # All servers on this account
   #
-  # @return [Array] An array of ScoutScout::Client objects
-  def clients
+  # @return [Array] An array of ScoutScout::Server objects
+  def servers
     response = self.class.get("/#{self.class.account}/clients.xml")
-    response['clients'].map { |client| ScoutScout::Client.new(client) }
+    response['clients'].map { |client| ScoutScout::Server.new(client) }
   end
 
 end

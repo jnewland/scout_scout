@@ -7,14 +7,17 @@ require 'scout_scout/descriptor'
 require 'scout_scout/plugin'
 require 'scout_scout/alert'
 require 'scout_scout/cluster.rb'
-require 'scout_scout/error.rb'
 require 'scout_scout/metric.rb'
 
 class ScoutScout
   include HTTParty
-  base_uri 'https://scoutapp.com'
+  # base_uri 'https://scoutapp.com'
+  base_uri 'http://localhost:3000'
   format :xml
   mattr_inheritable :account
+  
+  class Error < RuntimeError
+  end
 
   def initialize(scout_account_name, username, password)
     self.class.account = scout_account_name
@@ -35,6 +38,19 @@ class ScoutScout
   def servers
     response = self.class.get("/#{self.class.account}/clients.xml")
     response['clients'].map { |client| ScoutScout::Server.new(client) }
+  end
+  
+  class << self
+    alias_method :http_get, :get
+  end
+  
+  # Checks for errors via the HTTP status code. If an error is found, a 
+  # ScoutScout::Error is raised. Otherwise, the response.
+  # 
+  # @return HTTParty::Response
+  def self.get(uri)
+    response = http_get(uri)
+    response.code.to_s =~ /^(4|5)/ ? raise( ScoutScout::Error,response.message) : response
   end
 
 end

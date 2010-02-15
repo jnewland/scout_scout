@@ -1,5 +1,6 @@
 class ScoutScout::Cluster < Hashie::Mash
-  # Find the average value of a descriptor by name (ex: 'last_minute').
+  # Find the average value of a descriptor by name (ex: 'last_minute'). If the descriptor couldn't be found AND/OR
+  # hasn't reported since +options[:start]+, a ScoutScout::Error is raised.
   #
   # Options:
   #
@@ -54,7 +55,7 @@ class ScoutScout::Cluster < Hashie::Mash
     if response['data']
       ScoutScout::Metric.new(response['data'])
     else
-      ScoutScout::Error.new(response['error'])
+      raise ScoutScout::Error, response['error']
     end
   end
 

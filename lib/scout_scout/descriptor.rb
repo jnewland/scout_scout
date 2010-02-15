@@ -11,7 +11,7 @@ class ScoutScout::Descriptor < Hashie::Mash
   # @return [Array] An array of ScoutScout::Descriptor objects
   def self.all(options = {})
     response = ScoutScout.get("/#{ScoutScout.account}/descriptors.xml?descriptor=#{CGI.escape(options[:descriptor] || String.new)}&host=#{options[:host]}")
-    response['ar_descriptors'].map { |descriptor| ScoutScout::Descriptor.new(descriptor) }
+    response['ar_descriptors'] ? response['ar_descriptors'].map { |descriptor| ScoutScout::Descriptor.new(descriptor) } : Array.new
   end
 
   # @return [ScoutScout::Metric]

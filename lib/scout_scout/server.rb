@@ -16,16 +16,21 @@ class ScoutScout::Server < Hashie::Mash
       ScoutScout::Server.new(response['client'])
     else
       response = ScoutScout.get("/#{ScoutScout.account}/clients.xml?host=#{server_id_or_hostname}")
+      raise ScoutScout::Error, 'Not Found' if response['clients'].nil?
       ScoutScout::Server.new(response['clients'].first)
     end
   end
 
-  # Search for servers by matching hostname.
+  # Search for servers by matching hostname via :host.
+  #
+  # Example: ScoutScout::Server.all(:host => 'soawesome.org')
   #
   # @return [Array] An array of ScoutScout::Server objects
-  def self.all(hostname)
+  def self.all(options)
+    hostname = options[:host]
+    raise ScoutScout::Error, "Please specify a host via :host" if hostname.nil?
     response = ScoutScout.get("/#{ScoutScout.account}/clients.xml?host=#{hostname}")
-    response['clients'].map { |client| ScoutScout::Server.new(client) }
+    response['clients'] ? response['clients'].map { |client| ScoutScout::Server.new(client) } : Array.new
   end
 
   # Active alerts for this server

@@ -1,6 +1,6 @@
 = scout_scout
 
-A library for extracting data out of Scout[http//:scoutapp.com], a hosted monitoring service. This is experimental and likely to change. Consult your doctor before beginning a scouting program.
+A library for extracting data out of Scout[http//:scoutapp.com], a hosted monitoring service. This is experimental and likely to change. 
 
   require 'scout_scout'
   scout = ScoutScout.new('youraccountname', 'your@awesome.com', 'sekret')
@@ -13,7 +13,7 @@ A library for extracting data out of Scout[http//:scoutapp.com], a hosted monito
 
   #all servers that match the hostname.
   # see mysql regex formatting: http://dev.mysql.com/doc/refman/5.0/en/regexp.html
-  app_servers = ScoutScout::Server.all('db[0-9]*.awesome.com')
+  app_servers = ScoutScout::Server.all(:host => 'db[0-9]*.awesome.com')
 
   #details on that server's plugins
   ram_hungry_plugins = ram_hungry.plugins
@@ -23,6 +23,9 @@ A library for extracting data out of Scout[http//:scoutapp.com], a hosted monito
 
   #all available descriptors
   descriptors = ScoutScout::Descriptor.all
+  
+  # all descriptors on servers that match the provided host
+  descriptors = ScoutScout::Descriptor.all(:host => 'awesome.com')
 
   #cluster metrics
   ScoutScout::Cluster.average('mem_used')

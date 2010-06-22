@@ -17,6 +17,7 @@ begin
     gem.add_development_dependency "fakeweb"
     gem.add_dependency "hashie", "~> 0.1.8"
     gem.add_dependency "httparty", "~> 0.5.0"
+    gem.add_dependency "nokogiri"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

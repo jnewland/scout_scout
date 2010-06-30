@@ -21,7 +21,7 @@ class ScoutScout::Plugin < Hashie::Mash
     doc = Nokogiri::HTML(response.body)
 
     table = doc.css('table.list').first
-    user_rows = active_table.css('tr')[1..-1] # skip first row, which is headings
+    user_rows = table.css('tr')[1..-1] # skip first row, which is headings
 
     user_rows.map do |row|
       name_td, receiving_notifications_td = *row.css('td')

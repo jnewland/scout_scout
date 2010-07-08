@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<triggers type="array">
+  <trigger>
+    <id type="integer">119871</id>
+    <last-fired-at type="datetime">2010-04-08T04:10:00-04:00</last-fired-at>
+    <max-value type="float">85.0</max-value>
+    <min-value type="float">0.0</min-value>
+    <plugin-id type="integer">136421</plugin-id>
+    <sms-max-value type="float">90.0</sms-max-value>
+    <sms-percentage-change type="integer" nil="true"></sms-percentage-change>
+    <simple-type>peak</simple-type>
+    <title>Alert me when Disk Capacity exceeds 85%. SMS alert at 90%.</title>
+    <descriptor-label>Disk Capacity</descriptor-label>
+  </trigger>
+  <trigger>
+    <id type="integer">152031</id>
+    <last-fired-at type="datetime">2010-04-29T14:45:00-04:00</last-fired-at>
+    <max-value type="float">85.0</max-value>
+    <min-value type="float">0.0</min-value>
+    <plugin-id type="integer">136421</plugin-id>
+    <sms-max-value type="float">90.0</sms-max-value>
+    <sms-percentage-change type="integer" nil="true"></sms-percentage-change>
+    <simple-type>peak</simple-type>
+    <title>Alert me when % Memory Used exceeds 85%. SMS alert at 90%.</title>
+    <descriptor-label>% Memory Used</descriptor-label>
+  </trigger>
+  <trigger>
+    <id type="integer">119921</id>
+    <last-fired-at type="datetime" nil="true"></last-fired-at>
+    <max-value type="float">1.0</max-value>
+    <min-value type="float">0.0</min-value>
+    <plugin-id type="integer">136451</plugin-id>
+    <sms-max-value type="float">10.0</sms-max-value>
+    <sms-percentage-change type="integer" nil="true"></sms-percentage-change>
+    <simple-type>peak</simple-type>
+    <title>Alert me when Passenger Global Queue Depth exceeds 1 . SMS alert at 10 .</title>
+    <descriptor-label>Passenger Global Queue Depth</descriptor-label>
+  </trigger>
+</triggers>
+

@@ -155,6 +155,25 @@ describe "ScoutScout" do
       end
 
     end
+    describe 'trigger' do
+      describe 'list' do
+        before(:each) do
+          @scout_scout.stub_get('clients/13431.xml', 'client.xml')
+          @server = ScoutScout::Server.first(13431)
+          @scout_scout.stub_get('clients/13431/triggers.xml', 'triggers.xml')
+          @triggers = @server.triggers
+        end
+        it "should be accessable" do
+          @triggers.size.should == 3
+          @triggers.each do |trigger|
+            trigger.simple_type.should == 'peak'
+          end
+        end
+        it "should be an array of ScoutScout::Trigger objects" do
+          @triggers.first.class.should == ScoutScout::Trigger
+        end
+      end
+    end
     describe 'descriptor list' do
       before(:each) do
         @scout_scout.stub_get('clients/13431.xml', 'client.xml')

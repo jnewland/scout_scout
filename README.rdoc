@@ -21,6 +21,12 @@ A library for extracting data out of Scout[http//:scoutapp.com], a hosted monito
   #details about a specific plugin
   data = ram_hungry.plugin(12345)
 
+  #detauls on that server's triggers
+  ram_hungry_triggers = ram_hungry.triggers
+
+  #details about triggers for a specific plugin
+  plugin_triggers = ram_hungry.plugin(12345).triggers
+
   #all available descriptors
   descriptors = ScoutScout::Descriptor.all
   

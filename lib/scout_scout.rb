@@ -1,3 +1,4 @@
+require 'rubygems'
 require 'hashie'
 require 'httparty'
 require 'nokogiri'

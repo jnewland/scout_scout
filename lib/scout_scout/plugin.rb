@@ -31,7 +31,11 @@ class ScoutScout::Plugin < Hashie::Mash
       receiving_notifications = checked && checked.value == 'checked'
       Hashie::Mash.new :name => name, :receiving_notifications => receiving_notifications
     end
-    
+  end
+
+  def triggers
+    response = ScoutScout.get("/#{ScoutScout.account}/clients/#{server.id}/triggers.xml?plugin_id=#{id}")
+    response['triggers'].map { |trigger| decorate_with_server_and_plugin(ScoutScout::Trigger.new(trigger)) }
   end
 
 protected

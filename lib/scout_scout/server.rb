@@ -71,6 +71,14 @@ class ScoutScout::Server < Hashie::Mash
     ScoutScout::Descriptor.all(:host => hostname).map { |d| decorate_with_server(d) }
   end
 
+  # Details about all triggers for this server
+  #
+  # @return [Array] An array of ScoutScout::Trigger objects
+  def triggers
+    response = ScoutScout.get("/#{ScoutScout.account}/clients/#{self.id}/triggers.xml")
+    response['triggers'].map { |trigger| decorate_with_server(ScoutScout::Trigger.new(trigger)) }
+  end
+
 protected
 
   def decorate_with_server(hashie)

@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{scout_scout}
-  s.version = "0.0.4"
+  s.version = "0.0.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jesse Newland"]
@@ -32,6 +32,7 @@ Gem::Specification.new do |s|
      "lib/scout_scout/server.rb",
      "lib/scout_scout/trigger.rb",
      "lib/scout_scout/version.rb",
+     "scout_scout.gemspec",
      "spec/fixtures/activities.xml",
      "spec/fixtures/client.xml",
      "spec/fixtures/client_by_hostname.xml",

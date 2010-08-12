@@ -15,8 +15,7 @@ require 'scout_scout/person'
 
 class ScoutScout
   include HTTParty
-  # base_uri 'https://scoutapp.com'
-  base_uri 'http://localhost:3000'
+  base_uri 'https://scoutapp.com'
   format :xml
   mattr_inheritable :account
   

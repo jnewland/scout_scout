@@ -20,6 +20,37 @@ class ScoutScout::Server < Hashie::Mash
       ScoutScout::Server.new(response['clients'].first)
     end
   end
+  
+  # Creates a new server. If an error occurs, a +ScoutScout::Error+ is raised.
+  #
+  # An optional existing server id can be used as a template:
+  # ScoutScout::Server.create('web server 12',:id => 99999)
+  #
+  # @return [ScoutScout::Server]
+  def self.create(name,options = {})
+    id = options[:id]
+    response = ScoutScout.post("/#{ScoutScout.account}/clients.xml", 
+    :query => {:client => {:name => name, :copy_plugins_from_client_id => id}})
+    
+    raise ScoutScout::Error, response['errors']['error'] if response['errors']
+    
+    first(response.headers['id'].first.to_i)
+  end
+  
+  # Delete a server by id. If an error occurs, a +ScoutScout::Error+ is raised.
+  #
+  # @return [true]
+  def self.delete(id)
+    response = ScoutScout.delete("/#{ScoutScout.account}/clients/#{id}.xml")
+
+    if response.headers['status'].first.match('404')
+      raise ScoutScout::Error, "Server Not Found"
+    elsif !response.headers['status'].first.match('200')
+      raise ScoutScout::Error, "An error occured"
+    else
+      return true
+    end
+  end
 
   # Search for servers by matching hostname via :host.
   #

@@ -97,6 +97,25 @@ describe "ScoutScout" do
         end
       end
     end
+    describe '' do
+      before(:each) do        
+        @scout_scout.stub_post('clients.xml?client[copy_plugins_from_client_id]=&client[name]=sweet%20new%20server', 
+        'client.xml', {:id => '1234'})
+        @scout_scout.stub_get('clients/1234.xml', 'client.xml')
+      end
+      it 'can be created' do
+        @server = ScoutScout::Server.create('sweet new server')
+        @server.id.should == 13431
+      end
+    end
+    describe '' do
+      before(:each) do        
+        @scout_scout.stub_delete('clients/1234.xml','client.xml', {'status' => '200 OK'})
+      end
+      it 'can be deleted' do
+        ScoutScout::Server.delete(1234).should == true
+      end
+    end
     describe 'alert log' do
       before(:each) do
         @scout_scout.stub_get('clients/13431.xml', 'client.xml')

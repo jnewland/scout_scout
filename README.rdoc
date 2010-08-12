@@ -1,6 +1,6 @@
 = scout_scout
 
-A library for extracting data out of Scout[http//:scoutapp.com], a hosted monitoring service. This is experimental and likely to change. 
+A library for interacting with Scout[http//:scoutapp.com], a hosted monitoring service.
 
   require 'scout_scout'
   scout = ScoutScout.new('youraccountname', 'your@awesome.com', 'sekret')
@@ -35,6 +35,12 @@ A library for extracting data out of Scout[http//:scoutapp.com], a hosted monito
 
   #cluster metrics
   ScoutScout::Cluster.average('mem_used')
+  
+  #create a server using the server with id=6 as the template.
+  ScoutScout::Server.create('heavy metal',:id => 6) => <#ScoutScout::Server>
+  
+  #delete the server with id=10
+  ScoutScout::Server.delete(10) => true
 
 == Metrics
 

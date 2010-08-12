@@ -24,16 +24,16 @@ class ScoutScout
     FakeWeb.register_uri(:get, scout_url(path), options)
   end
 
-  def stub_post(path, filename)
-    FakeWeb.register_uri(:post, scout_url(path), :body => file_fixture(filename))
+  def stub_post(path, filename, headers = {})
+    FakeWeb.register_uri(:post, scout_url(path), {:body => file_fixture(filename)}.merge(headers))
   end
 
   def stub_put(path, filename)
     FakeWeb.register_uri(:put, scout_url(path), :body => file_fixture(filename))
   end
 
-  def stub_delete(path, filename)
-    FakeWeb.register_uri(:delete, scout_url(path), :body => file_fixture(filename))
+  def stub_delete(path, filename, headers = {})
+    FakeWeb.register_uri(:delete, scout_url(path), {:body => file_fixture(filename)}.merge(headers))
   end
 
   def stub_http_response_with(filename)

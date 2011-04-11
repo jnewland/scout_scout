@@ -1,29 +1,22 @@
-require 'rubygems'
-require 'rake'
+require 'bundler'
+Bundler.setup(:default, :development)
+
 $LOAD_PATH.unshift 'lib'
 require 'scout_scout/version'
 
-begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |gem|
-    gem.version = ScoutScout::VERSION
-    gem.name = "scout_scout"
-    gem.summary = %Q{API wrapper for scout.com}
-    gem.description = %Q{API wrapper for scout.com}
-    gem.email = "jnewland@gmail.com"
-    gem.homepage = "http://github.com/jnewland/scout_scout"
-    gem.authors = ["Jesse Newland"]
-    gem.add_development_dependency "rspec", "= 1.3.0"
-    gem.add_development_dependency "fakeweb"
-    gem.add_dependency "hashie", "~> 0.1.8"
-    gem.add_dependency "httparty", "~> 0.5.0"
-    gem.add_dependency "nokogiri"
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
-  end
-  Jeweler::GemcutterTasks.new
-rescue LoadError
-  puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
+require 'jeweler'
+Jeweler::Tasks.new do |gem|
+  gem.version = ScoutScout::VERSION
+  gem.name = "scout_scout"
+  gem.summary = %Q{API wrapper for scout.com}
+  gem.description = %Q{API wrapper for scout.com}
+  gem.email = "jnewland@gmail.com"
+  gem.homepage = "http://github.com/jnewland/scout_scout"
+  gem.authors = ["Jesse Newland"]
+  # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+  # dependencies are handled in Gemfile
 end
+Jeweler::GemcutterTasks.new
 
 require 'spec/rake/spectask'
 Spec::Rake::SpecTask.new(:spec) do |spec|
@@ -36,8 +29,6 @@ Spec::Rake::SpecTask.new(:rcov) do |spec|
   spec.pattern = 'spec/**/*_spec.rb'
   spec.rcov = true
 end
-
-task :spec => :check_dependencies
 
 task :default => :spec
 
